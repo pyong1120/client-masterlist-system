@@ -1,0 +1,498 @@
+/* =========================
+   GLOBAL
+========================= */
+
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f4f6f8;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.layout{
+    display:flex;
+    height:100vh;
+}
+
+
+/* =========================
+   LEFT SIDE — MASTERLIST
+========================= */
+
+.masterlist{
+    width:30%;
+    background:#ffffff;
+    border-right:3px solid #800020;
+    display:flex;
+    flex-direction:column;
+}
+
+.header{
+    padding:15px;
+    border-bottom:1px solid #ddd;
+}
+
+.header h2{
+    margin:0 0 10px 0;
+    color:#800020;
+}
+
+#search{
+    width:100%;
+    padding:10px 14px;
+
+    background:#800020;
+    border:2px solid #d6a0b0;
+
+    color:#333;
+    border-radius:10px;
+
+    font-size:14px;
+    font-weight:500;
+
+    outline:none;
+    box-sizing:border-box;
+
+    transition:0.2s;
+}
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#800020;
+    color:white;
+    padding:10px;
+    font-size:13px;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+}
+
+tbody tr{
+    cursor:pointer;
+}
+
+tbody tr:hover{
+    background:#fff4f4;
+}
+
+/* =========================
+   RIGHT SIDE — PROFILE
+========================= */
+
+.profile{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    background:#fafafa;
+}
+
+#profileTitle{
+    margin:0;
+    padding:20px;
+    border-bottom:1px solid #ddd;
+    background:white;
+}
+
+/* =========================
+   TABS
+========================= */
+
+.tabs{
+    display:flex;
+    gap:5px;
+    padding:10px;
+    background:#f1f1f1;
+    border-bottom:1px solid #ccc;
+}
+
+.tab{
+    padding:8px 14px;
+    background:white;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.tab.active{
+    background:#800020;
+    color:white;
+}
+
+/* =========================
+   TAB CONTENT
+========================= */
+
+.tab-content{
+    padding:20px;
+    overflow:auto;
+    flex:1;
+}
+/* =========================
+   ACTIVE ROW HIGHLIGHT
+========================= */
+
+tr.active-row{
+    background-color: #ffe6e6 !important;
+    font-weight: bold;
+    border-left: 4px solid #800020;
+}
+/* =========================
+   ADMIN FORM
+========================= */
+
+.admin-form{
+    padding:15px;
+    border-bottom:1px solid #ddd;
+    background:#fff8f8;
+}
+
+.admin-form h3{
+    margin:0 0 10px 0;
+    color:#800020;
+}
+
+.admin-form input,
+.admin-form select{
+    width:100%;
+    padding:8px;
+    margin-bottom:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:13px;
+}
+
+#addClientBtn{
+    width:100%;
+    padding:10px;
+    background:#800020;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+#addClientBtn:hover{
+    background:#5a0016;
+}
+/* =========================
+   ADMIN FORM IMPROVED UI
+========================= */
+
+.admin-form {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-form h3 {
+    margin-bottom: 10px;
+    color: #800020;
+}
+
+/* SECTION TITLE */
+.form-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #800020;
+}
+
+/* GRID LAYOUT */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+/* INPUT STYLE CLEANUP */
+.admin-form input,
+.admin-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* BUTTON */
+#addClientBtn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background: #800020;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#addClientBtn:hover {
+    background: #5e0017;
+}
+/* =========================
+   UNIFORM FORM CONTROLS
+========================= */
+
+.form-section input,
+.form-section select{
+    width: 100%;
+    height: 38px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+/* DATE INPUT FIX (same look as text inputs) */
+.form-section input[type="date"]{
+    width: 100%;
+    height: 38px;
+    padding: 8px 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+/* LABEL FIX */
+.form-section label{
+    display: block;
+    font-size: 12px;
+    margin: 4px 0 4px;
+    color: #444;
+}
+.form-section{
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* =========================
+   CATEGORY COLORS
+========================= */
+
+/* Investigation - Pastel Blue */
+.form-section.investigation{
+    background: #dbeeff;
+}
+
+/* PSIR - Pastel Pink */
+.form-section.psir{
+    background: #ffd6e7;
+}
+
+/* Probation - Pastel Green */
+.form-section.probation{
+    background: #dff7df;
+}
+
+/* Final Report - Pastel Yellow */
+.form-section.final-report{
+    background: #fff6c7;
+}
+
+/* Termination - Pastel Orange */
+.form-section.termination{
+    background: #ffe2c6;
+}
+/* =========================
+   COLLAPSIBLE SECTIONS
+========================= */
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    padding:12px 15px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.section-header span{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.section-body{
+    display:none;
+    padding-top:15px;
+}
+
+/* OPEN STATE */
+.form-section.active .section-body{
+    display:block;
+}
+
+.form-section.active .section-header span{
+    content:"-";
+}
+/* =========================
+   SEARCH BAR
+========================= */
+
+.search-box{
+    position:relative;
+    margin-bottom:10px;
+}
+
+.search-icon{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:13px;
+    opacity:0.6;
+}
+
+#search{
+    width:100%;
+    height:40px;
+
+    padding-left:35px;
+    padding-right:12px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#f3f4f6;
+
+    font-size:13px;
+    box-sizing:border-box;
+
+    transition:0.2s;
+}
+
+#search:focus{
+    outline:none;
+    background:white;
+    box-shadow:0 0 0 2px #80002022;
+}
+/* =========================
+   SEARCH BOX WITH ICON
+========================= */
+
+.search-box{
+    position:relative;
+    width:100%;
+}
+
+.search-icon{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:14px;
+    color:#800020;
+}
+
+#search{
+    width:100%;
+    padding:10px 14px 10px 38px;
+
+    background:#d9d8d8;
+    border:2px solid #d6a0b0;
+    border-radius:10px;
+
+    font-size:14px;
+    box-sizing:border-box;
+    outline:none;
+}
+
+#search:focus{
+    border-color:#800020;
+    box-shadow:0 0 0 3px rgba(128,0,32,0.15);
+}
+.year-filter{
+    margin-top:10px;
+}
+
+#yearFilter{
+    width: 20%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #d9d8d8;
+    font-size:13px;
+}
+.divider{
+    height:3px;
+    background:linear-gradient(to right, #800020, #4a0012);
+    margin:15px 0;
+    border-radius:2px;
+}
+/* =========================
+   FILTER ROW (2 DROPDOWNS)
+========================= */
+
+.filter-row{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.filter-box{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+.filter-box label{
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:4px;
+    color:#800020;
+}
+
+#yearFilter,
+#typeFilter{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:13px;
+    background:#fff;
+}
+.investigation { background: #dbeeff; }
+.psir { background: #ffd6e7; }
+.probation { background: #dff7df; }
+.final-report { background: #fff6c7; }
+.termination { background: #ffe2c6; }
+.tabs .tab[data-tab="investigation"]{
+    background:#dbeeff;
+}
+
+.tabs .tab[data-tab="psir"]{
+    background:#ffd6e7;
+}
+
+.tabs .tab[data-tab="probation"]{
+    background:#dff7df;
+}
+
+.tabs .tab[data-tab="finalreport"]{
+    background:#fff6c7;
+}
+
+.tabs .tab[data-tab="termination"]{
+    background:#ffe2c6;
+}
+.tabs .tab.active{
+    background:#800020 !important;
+    color:white;
+}

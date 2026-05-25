@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Client Masterlist V2</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- ================= LEFT PANEL ================= -->
+    <div class="masterlist">
+
+        <div class="header">
+            <h2>OFFICE ORDER MASTERLIST</h2>
+
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+
+                <input 
+                    type="text"
+                    id="search"
+                    placeholder="Search surname..."
+                >
+            </div>
+        </div>
+
+        <div class="admin-form">
+
+            <h3>ADMIN ENCODING PANEL</h3>
+
+            <!-- ================= INVESTIGATION ================= -->
+            <div class="form-section investigation">
+                <div class="section-header">
+                    <h4>INVESTIGATION</h4>
+                    <span>+</span>
+                </div>
+
+                <div class="section-body">
+
+                    <input type="text" id="clientNo" placeholder="Client No">
+                    <input type="text" id="petitionerName" placeholder="Petitioner's Name">
+                    <input type="text" id="address" placeholder="Address">
+                    <input type="text" id="criminalCaseNo" placeholder="Criminal Case No">
+                    <input type="text" id="courtOfOrigin" placeholder="Court of Origin">
+                    <input type="text" id="offense" placeholder="Offense">
+                    <input type="text" id="sentence" placeholder="Sentence">
+
+                    <label>Date of Order</label>
+                    <input type="date" id="dateOfOrder">
+
+                    <label>Date Received</label>
+                    <input type="date" id="dateReceived">
+
+                    <input type="text" id="investigatingOfficer" placeholder="Investigating Officer">
+                </div>
+            </div>
+
+            <!-- ================= PSIR ================= -->
+            <div class="form-section psir">
+                <div class="section-header">
+                    <h4>PSIR SUBMITTED</h4>
+                    <span>+</span>
+                </div>
+
+                <div class="section-body">
+
+                    <select id="psirDecision">
+                        <option value="">Select Decision</option>
+                        <option value="Grant">Grant</option>
+                        <option value="Denial">Denial</option>
+                        <option value="Withdraw">Withdraw</option>
+                        <option value="Cancel">Cancel</option>
+                    </select>
+
+                    <label>Date</label>
+                    <input type="date" id="psirDate">
+                </div>
+            </div>
+
+            <!-- ================= PROBATION ================= -->
+            <div class="form-section probation">
+                <div class="section-header">
+                    <h4>PROBATION SUPERVISION & PERIOD</h4>
+                    <span>+</span>
+                </div>
+
+                <div class="section-body">
+
+                    <input type="text" id="probClientNo" placeholder="Client No">
+                    <input type="text" id="probPetitionerName" placeholder="Petitioner's Name">
+                    <input type="text" id="familyGroupNo" placeholder="Family/Group No">
+                    <input type="text" id="supervisingOfficer" placeholder="Supervising Officer">
+
+                    <label>Date Received</label>
+                    <input type="date" id="probDateReceived">
+
+                    <label>Start Date</label>
+                    <input type="date" id="startDate">
+
+                    <label>End Date</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+
+            <!-- ================= FINAL REPORT ================= -->
+            <div class="form-section final-report">
+                <div class="section-header">
+                    <h4>FINAL REPORT</h4>
+                    <span>+</span>
+                </div>
+
+                <div class="section-body">
+
+                    <label>Termination Type</label>
+                    <select id="terminationTypeFinal">
+                        <option value="">Select Termination Type</option>
+                        <option value="Full Term">Full Term</option>
+                        <option value="Early Term">Early Term</option>
+                        <option value="Died">Died</option>
+                    </select>
+
+                    <label>Termination Date</label>
+                    <input type="date" id="terminationDateFinal">
+
+                    <label>Revocation Type</label>
+                    <select id="revocationTypeFinal">
+                        <option value="">Select Revocation Type</option>
+                        <option value="Abscond">Abscond</option>
+                        <option value="Commission of Another Offense">Commission of Another Offense</option>
+                        <option value="Violations of Probation Conditions">Violations of Probation Conditions</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label>Revocation Date</label>
+                    <input type="date" id="revocationDateFinal">
+
+                    <label>Extension of Probation Period</label>
+                    <input type="date" id="extensionDateFinal">
+                </div>
+            </div>
+
+            <!-- ================= TERMINATION ================= -->
+            <div class="form-section termination">
+                <div class="section-header">
+                    <h4>TERMINATION</h4>
+                    <span>+</span>
+                </div>
+
+                <div class="section-body">
+
+                    <select id="terminationType">
+                        <option value="">Termination Type</option>
+                        <option value="Full Term">Full Term</option>
+                        <option value="Early Term">Early Term</option>
+                        <option value="Denied">Denied</option>
+                        <option value="Withdrawn">Withdrawn</option>
+                        <option value="Died">Died</option>
+                    </select>
+
+                    <label>Termination Date</label>
+                    <input type="date" id="terminationDate">
+
+                    <select id="revocationType">
+                        <option value="">Revocation Type</option>
+                        <option value="Abscond">Abscond</option>
+                        <option value="Another Offense">Commission of Another Offense</option>
+                        <option value="Violation">Violations of Probation Conditions</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label>Revocation Date</label>
+                    <input type="date" id="revocationDate">
+
+                    <input type="text" id="transferCourt" placeholder="Transfer Court/PPO">
+
+                    <label>Transfer Date</label>
+                    <input type="date" id="transferDate">
+
+                    <label>Extension Date</label>
+                    <input type="date" id="terminationExtensionDate">
+                </div>
+            </div>
+
+            <!-- ================= BUTTON ================= -->
+            <button id="addClientBtn">SAVE</button>
+
+            <div class="divider"></div>
+
+            <div class="filter-row">
+
+                <div class="filter-box">
+                    <label>Year</label>
+                    <select id="yearFilter">
+                        <option value="all">Select year</option>
+                    </select>
+                </div>
+
+                <div class="filter-box">
+                    <label>Type</label>
+                    <select id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="PI">PI</option>
+                        <option value="PS">PS</option>
+                        <option value="CPI">CPI</option>
+                        <option value="CPS">CPS</option>
+                        <option value="TPS">TPS</option>
+                        <option value="PPI">PPI</option>
+                        <option value="CPPI">CPPI</option>
+                        <option value="PR">PR</option>
+                        <option value="TPR">TPR</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Client No</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+
+            <tbody id="clientTable"></tbody>
+        </table>
+
+    </div>
+
+    <!-- ================= RIGHT PANEL ================= -->
+    <div class="profile">
+
+        <h2 id="profileTitle">Select a Client</h2>
+
+        <div class="tabs">
+
+            <div class="tab" data-tab="investigation">Investigation</div>
+            <div class="tab" data-tab="psir">PSIR Submitted</div>
+            <div class="tab" data-tab="probation">Probation</div>
+            <div class="tab" data-tab="finalreport">Final Report</div>
+            <div class="tab" data-tab="termination">Termination</div>
+
+        </div>
+
+        <div class="tab-content" id="tabContent">
+            <p>No client selected.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
