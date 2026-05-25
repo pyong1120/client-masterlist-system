@@ -32,6 +32,103 @@ function getYearFromCaseNumber(caseNumber) {
 }
 
 /* =========================
+   SAVE CLIENT (🔥 FIXED)
+========================= */
+
+addClientBtn.addEventListener("click", async () => {
+
+    try {
+
+        const name =
+            document.getElementById("petitionerName")?.value ||
+            document.getElementById("clientName")?.value ||
+            "";
+
+        const caseNumber =
+            document.getElementById("clientNo")?.value ||
+            document.getElementById("caseNo")?.value ||
+            "";
+
+        if (!name || !caseNumber) {
+            alert("Please fill required fields (Name & Case Number)");
+            return;
+        }
+
+        const payload = {
+            name,
+            caseNumber,
+
+            caseflow: {
+                currentStage: typeFilter.value || "PI"
+            },
+
+            investigation: {
+                clientNo: document.getElementById("clientNo")?.value || "",
+                petitionerName: document.getElementById("petitionerName")?.value || "",
+                address: document.getElementById("address")?.value || "",
+                criminalCaseNo: document.getElementById("criminalCaseNo")?.value || "",
+                courtOfOrigin: document.getElementById("courtOfOrigin")?.value || "",
+                offense: document.getElementById("offense")?.value || "",
+                sentence: document.getElementById("sentence")?.value || "",
+                dateOfOrder: document.getElementById("dateOfOrder")?.value || "",
+                dateReceived: document.getElementById("dateReceived")?.value || "",
+                investigatingOfficer: document.getElementById("investigatingOfficer")?.value || ""
+            },
+
+            psir: {
+                decision: document.getElementById("psirDecision")?.value || "",
+                date: document.getElementById("psirDate")?.value || ""
+            },
+
+            probation: {
+                clientNo: document.getElementById("probClientNo")?.value || "",
+                petitionerName: document.getElementById("probPetitionerName")?.value || "",
+                familyGroupNo: document.getElementById("familyGroupNo")?.value || "",
+                supervisingOfficer: document.getElementById("supervisingOfficer")?.value || "",
+                dateReceived: document.getElementById("probDateReceived")?.value || "",
+                startDate: document.getElementById("startDate")?.value || "",
+                endDate: document.getElementById("endDate")?.value || ""
+            },
+
+            finalReport: {
+                terminationType: document.getElementById("terminationTypeFinal")?.value || "",
+                revocationType: document.getElementById("revocationTypeFinal")?.value || "",
+                extensionDate: document.getElementById("extensionDateFinal")?.value || ""
+            },
+
+            termination: {
+                terminationType: document.getElementById("terminationType")?.value || "",
+                revocationType: document.getElementById("revocationType")?.value || "",
+                transferCourt: document.getElementById("transferCourt")?.value || "",
+                transferDate: document.getElementById("transferDate")?.value || ""
+            }
+        };
+
+        const res = await fetch("https://client-masterlist-system.onrender.com/clients", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error(data);
+            alert("Failed to save client");
+            return;
+        }
+
+        alert("Saved successfully!");
+
+        await loadClients();
+
+    } catch (err) {
+        console.error("SAVE ERROR:", err);
+        alert("Error saving client");
+    }
+});
+
+/* =========================
    LOAD YEAR FILTER
 ========================= */
 
@@ -57,7 +154,7 @@ function loadYearOptions() {
 }
 
 /* =========================
-   LOAD CLIENTS FROM DB
+   LOAD CLIENTS
 ========================= */
 
 async function loadClients() {
@@ -79,22 +176,14 @@ async function loadClients() {
                 .slice(-1)[0]
                 .toLowerCase();
 
-            if (!surname.includes(searchValue.toLowerCase())) {
-                return;
-            }
+            if (!surname.includes(searchValue.toLowerCase())) return;
 
             const clientYear = getYearFromCaseNumber(client.caseNumber || client.casenumber);
 
-            if (selectedYear !== "all" && clientYear != selectedYear) {
-                return;
-            }
+            if (selectedYear !== "all" && clientYear != selectedYear) return;
 
-            if (
-                selectedType !== "all" &&
-                client.caseflow?.currentStage !== selectedType
-            ) {
-                return;
-            }
+            if (selectedType !== "all" &&
+                client.caseflow?.currentStage !== selectedType) return;
 
             const row = document.createElement("tr");
 
@@ -110,9 +199,7 @@ async function loadClients() {
                 selectedClientId = client.id;
                 showClientDetails(client.id);
 
-                if (selectedRow) {
-                    selectedRow.classList.remove("active-row");
-                }
+                if (selectedRow) selectedRow.classList.remove("active-row");
 
                 row.classList.add("active-row");
                 selectedRow = row;
@@ -122,7 +209,7 @@ async function loadClients() {
         });
 
     } catch (err) {
-        console.error("Error loading clients:", err);
+        console.error(err);
     }
 }
 
@@ -131,52 +218,41 @@ async function loadClients() {
 ========================= */
 
 function applyFilters() {
-
     selectedYear = yearFilter.value;
     selectedType = typeFilter.value;
     searchValue = searchInput.value.trim();
-
     loadClients();
 }
 
 /* =========================
-   SHOW CLIENT DETAILS
+   DETAILS
 ========================= */
 
 function showClientDetails(id) {
 
     const client = window.clientsData.find(c => c.id === id);
-
     if (!client) return;
 
     profileTitle.innerText = client.name;
-
-    tabContent.innerHTML = `<p>Please select a category tab above.</p>`;
-
-    tabs.forEach(tab => tab.classList.remove("active"));
+    tabContent.innerHTML = `<p>Select tab above</p>`;
 }
 
 /* =========================
    TABS
 ========================= */
 
-function setActiveTab(tabName) {
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        setActiveTab(tab.dataset.tab);
+        switchTab(tab.dataset.tab);
+    });
+});
 
+function setActiveTab(tabName) {
     tabs.forEach(tab => {
         tab.classList.toggle("active", tab.dataset.tab === tabName);
     });
 }
-
-tabs.forEach(tab => {
-
-    tab.addEventListener("click", () => {
-
-        const tabName = tab.dataset.tab;
-
-        setActiveTab(tabName);
-        switchTab(tabName);
-    });
-});
 
 function switchTab(tabName) {
 
@@ -196,48 +272,23 @@ function switchTab(tabName) {
     else if (tabName === "probation") {
         tabContent.innerHTML = `
             <h3>Probation</h3>
-
-            <p><strong>Client No:</strong> ${client.probation?.clientNo || "-"}</p>
-            <p><strong>Petitioner's Name:</strong> ${client.probation?.petitionerName || "-"}</p>
-            <p><strong>Family Group No:</strong> ${client.probation?.familyGroupNo || "-"}</p>
-            <p><strong>Supervising Officer:</strong> ${client.probation?.supervisingOfficer || "-"}</p>
-            <p><strong>Date Received:</strong> ${client.probation?.dateReceived || "-"}</p>
-            <p><strong>Start Date:</strong> ${client.probation?.startDate || "-"}</p>
-            <p><strong>End Date:</strong> ${client.probation?.endDate || "-"}</p>
+            <p>${client.probation?.clientNo || "-"}</p>
         `;
     }
 
     else if (tabName === "finalreport") {
         tabContent.innerHTML = `
             <h3>Final Report</h3>
-
-            <p><strong>Termination Type:</strong> ${client.finalReport?.terminationType || "-"}</p>
-            <p><strong>Revocation Type:</strong> ${client.finalReport?.revocationType || "-"}</p>
-            <p><strong>Extension Date:</strong> ${client.finalReport?.extensionDate || "-"}</p>
+            <p>${client.finalReport?.terminationType || "-"}</p>
         `;
     }
 
     else if (tabName === "termination") {
         tabContent.innerHTML = `
             <h3>Termination</h3>
-
-            <p><strong>Termination Type:</strong> ${client.termination?.terminationType || "-"}</p>
-            <p><strong>Revocation Type:</strong> ${client.termination?.revocationType || "-"}</p>
-            <p><strong>Transfer Court:</strong> ${client.termination?.transferCourt || "-"}</p>
-            <p><strong>Transfer Date:</strong> ${client.termination?.transferDate || "-"}</p>
+            <p>${client.termination?.terminationType || "-"}</p>
         `;
     }
-}
-
-/* =========================
-   EVENTS
-========================= */
-
-yearFilter.addEventListener("change", applyFilters);
-typeFilter.addEventListener("change", applyFilters);
-
-if (searchInput) {
-    searchInput.addEventListener("input", applyFilters);
 }
 
 /* =========================
@@ -245,3 +296,10 @@ if (searchInput) {
 ========================= */
 
 window.addEventListener("DOMContentLoaded", loadClients);
+
+yearFilter.addEventListener("change", applyFilters);
+typeFilter.addEventListener("change", applyFilters);
+
+if (searchInput) {
+    searchInput.addEventListener("input", applyFilters);
+}
