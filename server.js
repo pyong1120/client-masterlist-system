@@ -3,7 +3,7 @@ const cors = require("cors");
 const { Pool } = require("pg");
 require("dotenv").config();
 
-console.log("DATABASE_URL =", process.env.DATABASE_URL);
+require("dns").setDefaultResultOrder("ipv4first"); // FIX Render + Supabase issue
 
 const app = express();
 
@@ -14,10 +14,13 @@ app.use(express.json());
    DATABASE CONNECTION
 ========================= */
 
+if (!process.env.DATABASE_URL) {
+    console.error("❌ DATABASE_URL is missing!");
+}
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        require: true,
         rejectUnauthorized: false
     }
 });
@@ -31,12 +34,12 @@ app.get("/", (req, res) => {
 });
 
 /* =========================
-   GET ALL CLIENTS
+   GET CLIENTS
 ========================= */
 
 app.get("/clients", async (req, res) => {
-    try {
 
+    try {
         const result = await pool.query(`
             SELECT * FROM clients
             ORDER BY id DESC
@@ -51,7 +54,7 @@ app.get("/clients", async (req, res) => {
 });
 
 /* =========================
-   CREATE CLIENT (FULL DATA READY)
+   CREATE CLIENT
 ========================= */
 
 app.post("/clients", async (req, res) => {
@@ -61,12 +64,12 @@ app.post("/clients", async (req, res) => {
         const {
             name,
             caseNumber,
-            caseFlow,
-            investigation,
-            psir,
-            probation,
-            finalReport,
-            termination
+            caseFlow = {},
+            investigation = {},
+            psir = {},
+            probation = {},
+            finalReport = {},
+            termination = {}
         } = req.body;
 
         const result = await pool.query(`
@@ -85,12 +88,12 @@ app.post("/clients", async (req, res) => {
         `, [
             name,
             caseNumber,
-            caseFlow,
-            investigation,
-            psir,
-            probation,
-            finalReport,
-            termination
+            JSON.stringify(caseFlow),
+            JSON.stringify(investigation),
+            JSON.stringify(psir),
+            JSON.stringify(probation),
+            JSON.stringify(finalReport),
+            JSON.stringify(termination)
         ]);
 
         res.json(result.rows[0]);
